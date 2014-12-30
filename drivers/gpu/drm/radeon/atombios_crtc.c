@@ -1670,6 +1670,8 @@ static void atombios_crtc_disable(struct drm_crtc *crtc)
 	struct radeon_atom_ss ss;
 
 	atombios_crtc_dpms(crtc, DRM_MODE_DPMS_OFF);
+	if (ASIC_IS_DCE6(rdev))
+		atombios_powergate_crtc(crtc, ATOM_ENABLE);
 
 	switch (radeon_crtc->pll_id) {
 	case ATOM_PPLL1:
