@@ -138,6 +138,9 @@ obj-$(CONFIG_HYPERV)		+= hv/
 
 obj-$(CONFIG_PM_DEVFREQ)	+= devfreq/
 
+# Backoff Driver
+obj-$(CONFIG_SUSPEND_BACKOFF)		+= backoff/
+
 #MobiCore
 obj-$(CONFIG_MOBICORE_SUPPORT)  += gud/
 
