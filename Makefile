@@ -567,26 +567,7 @@ all: vmlinux
 ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
 KBUILD_CFLAGS	+= -Os $(call cc-disable-warning,maybe-uninitialized,)
 else
-KBUILD_CFLAGS	+= -O2 -marm \
--ftree-vectorize \
--fgcse-sm \
--fgcse-las \
--fsched-pressure \
--fipa-pta \
--ftree-loop-if-convert \
--ftree-loop-distribution \
--ftree-loop-im \
--ftree-loop-ivcanon \
--fivopts \
--ftree-coalesce-inlined-vars \
--fweb \
--DNDEBUG \
--finline-functions \
--fpredictive-commoning \
--fgcse-after-reload \
--fvect-cost-model=dynamic \
--ftree-partial-pre \
--fipa-cp-clone
+KBUILD_CFLAGS	+= -O2 
 
 endif
 
