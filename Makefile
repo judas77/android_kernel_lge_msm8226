@@ -245,7 +245,7 @@ CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
 
 HOSTCC       = gcc
 HOSTCXX      = g++
-HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -pipe
+HOSTCFLAGS   = -Wall -mvectorize-with-neon-quad -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -pipe
 HOSTCXXFLAGS = -O2 -pipe
 
 # Decide whether to build built-in, modular, or both.
@@ -375,6 +375,9 @@ KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 			-fno-delete-null-pointer-checks \
 			-Wno-sequence-point \
 			-std=gnu89 \
+			-mvectorize-with-neon-quad \
+			-munaligned-access \
+			-ffast-math \
 			-march=armv7-a \
 			-mtune=cortex-a7 \
 			-mfpu=neon-vfpv4 \
@@ -594,7 +597,11 @@ KBUILD_CFLAGS	+= -O2 -marm \
 -fgcse-after-reload \
 -fvect-cost-model=dynamic \
 -ftree-partial-pre \
--fipa-cp-clone
+-fipa-cp-clone \ 
+-fno-align-functions \
+-fno-align-loops \
+-fno-align-jumps \
+-fno-align-labels
 
 endif
 
