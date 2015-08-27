@@ -597,7 +597,7 @@ KBUILD_CFLAGS	+= -O2 -marm \
 -fgcse-after-reload \
 -fvect-cost-model=dynamic \
 -ftree-partial-pre \
--fipa-cp-clone \ 
+-fipa-cp-clone \
 -fno-align-functions \
 -fno-align-loops \
 -fno-align-jumps \
