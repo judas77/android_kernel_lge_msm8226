@@ -245,8 +245,8 @@ CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
 
 HOSTCC       = gcc
 HOSTCXX      = g++
-HOSTCFLAGS   = -Wall -mvectorize-with-neon-quad -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -pipe
-HOSTCXXFLAGS = -O2 -pipe
+HOSTCFLAGS  := -Wall -Wmissing-prototypes -Wstrict-prototypes -O3 -fno-unswitch-loops -fomit-frame-pointer -std=gnu99 -pipe
+HOSTCXXFLAGS := -O3 -fno-unswitch-loops -pipe
 
 # Decide whether to build built-in, modular, or both.
 # Normally, just do built-in.
@@ -578,30 +578,23 @@ all: vmlinux
 ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
 KBUILD_CFLAGS	+= -Os $(call cc-disable-warning,maybe-uninitialized,)
 else
-KBUILD_CFLAGS	+= -O2 -marm \
--ftree-vectorize \
--fgcse-sm \
--fgcse-las \
--fsched-pressure \
--fipa-pta \
--ftree-loop-if-convert \
--ftree-loop-distribution \
--ftree-loop-im \
--ftree-loop-ivcanon \
--fivopts \
--ftree-coalesce-inlined-vars \
--fweb \
--DNDEBUG \
--finline-functions \
--fpredictive-commoning \
--fgcse-after-reload \
--fvect-cost-model=dynamic \
--ftree-partial-pre \
--fipa-cp-clone \
--fno-align-functions \
--fno-align-loops \
--fno-align-jumps \
--fno-align-labels
+KBUILD_CFLAGS	+= -O3 -fno-unswitch-loops -marm \
+		  -ftree-vectorize \
+		  -fmodulo-sched \
+		  -fmodulo-sched-allow-regmoves \
+		  -fgcse-sm \
+		  -fgcse-las \
+		  -fsched-pressure \
+		  -fipa-pta \
+		  -fisolate-erroneous-paths-attribute \
+		  -ftree-loop-if-convert \
+		  -ftree-loop-distribution \
+		  -ftree-loop-im \
+		  -ftree-loop-ivcanon \
+		  -fivopts \
+		  -ftree-coalesce-inlined-vars \
+		  -fweb \
+		  -DNDEBUG
 
 endif
 
