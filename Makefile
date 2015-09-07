@@ -351,7 +351,7 @@ CC		= $(srctree)/scripts/gcc-wrapper.py $(REAL_CC)
 
 CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ \
 		  -Wbitwise -Wno-return-void $(CF)
-CFLAGS_MODULE   =
+CFLAGS_MODULE   = -fno-lto -fno-fat-lto-objects -pipe
 AFLAGS_MODULE   =
 LDFLAGS_MODULE  =
 CFLAGS_KERNEL	=
@@ -380,7 +380,7 @@ KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 			-ffast-math \
 			-march=armv7-a \
 			-mtune=cortex-a7 \
-			-mfpu=neon-vfpv4 \
+			-mfpu=vfpv3 \
 			-mfloat-abi=softfp \
 			-pipe \
 			-w		   
@@ -592,9 +592,13 @@ KBUILD_CFLAGS	+= -O3 -fno-unswitch-loops -marm \
 		  -ftree-loop-im \
 		  -ftree-loop-ivcanon \
 		  -fivopts \
+		  -flto \
+		  -ffat-lto-objects \
 		  -ftree-coalesce-inlined-vars \
 		  -fweb \
-		  -DNDEBUG
+		  -DNDEBUG \
+		  -fdevirtualize-speculatively \
+		  -fdevirtualize-at-ltrans
 
 endif
 
